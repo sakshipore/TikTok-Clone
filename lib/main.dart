@@ -10,7 +10,7 @@ import 'package:tik_tok_clone/view/screens/auth/signup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp().then((value) => Get.put(AuthController));
+  await Firebase.initializeApp().then((value) => Get.put(AuthController()));
   runApp(const MyApp());
 }
 
@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData.dark().copyWith(
               scaffoldBackgroundColor: backgroundColor,
             ),
+            // initialRoute: SignupScreen(),
             home: SignupScreen(),
           );
         });
