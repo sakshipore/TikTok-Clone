@@ -17,9 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          pageIndex[pageIdx],
-        ),
+        child: pageIndex[pageIdx],
+        
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

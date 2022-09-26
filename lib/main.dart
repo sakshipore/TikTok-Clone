@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:tik_tok_clone/constants.dart';
 import 'package:tik_tok_clone/controller/auth_controller.dart';
+import 'package:tik_tok_clone/router/routes.dart';
+import 'package:tik_tok_clone/router/routes_names.dart';
 import 'package:tik_tok_clone/view/screens/auth/login_screen.dart';
 import 'package:tik_tok_clone/view/screens/auth/signup_screen.dart';
 
@@ -29,8 +31,9 @@ class MyApp extends StatelessWidget {
             theme: ThemeData.dark().copyWith(
               scaffoldBackgroundColor: backgroundColor,
             ),
-            // initialRoute: SignupScreen(),
-            home: SignupScreen(),
+            initialRoute: RoutesNames.signUpScreen,
+            getPages: AppRoutes.routes,
+            // home: SignupScreen(),
           );
         });
   }

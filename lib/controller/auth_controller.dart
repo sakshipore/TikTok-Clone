@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tik_tok_clone/model/user.dart';
+import 'package:tik_tok_clone/router/routes_names.dart';
 import 'package:tik_tok_clone/view/screens/auth/login_screen.dart';
 import 'package:tik_tok_clone/view/screens/home_screen.dart';
 
@@ -36,9 +37,9 @@ class AuthController extends GetxController {
 
   _setInitialView(User? user) {
     if (user == null) {
-      Get.offAll(() => LoginScreen());
+      Get.offAll(() => RoutesNames.loginScreen);
     } else {
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => RoutesNames.homeScreen);
     }
   }
 
