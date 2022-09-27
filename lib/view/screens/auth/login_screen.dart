@@ -59,8 +59,9 @@ class LoginScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                AuthController.instance
-                    .login(_emailController.text, _passwordController.text);
+                AuthController.instance.login(
+                    _emailController.text.toString().trim(),
+                    _passwordController.text.toString().trim());
               },
               child: Container(
                 padding: EdgeInsets.symmetric(

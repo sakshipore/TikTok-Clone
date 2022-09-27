@@ -9,7 +9,8 @@ class SignupScreen extends StatelessWidget {
 
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _setPasswordController = new TextEditingController();
-  TextEditingController _confirmPasswordController = new TextEditingController();
+  TextEditingController _confirmPasswordController =
+      new TextEditingController();
   TextEditingController _usernameController = new TextEditingController();
 
   @override
@@ -125,10 +126,11 @@ class SignupScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   AuthController.instance.SignUp(
-                      _usernameController.text,
-                      _emailController.text,
-                      _setPasswordController.text,
-                      AuthController.instance.profileImage);
+                    _usernameController.text.toString().trim(),
+                    _emailController.text.toString().trim(),
+                    _setPasswordController.text.toString().trim(),
+                    AuthController.instance.profileImage,
+                  );
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(
