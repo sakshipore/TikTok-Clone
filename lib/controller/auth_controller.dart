@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,29 +20,29 @@ class AuthController extends GetxController {
     if (image == null) return;
 
     final img = File(image.path);
-    this.profileImage = img;
+    profileImage = img;
   }
 
   // User State Persistence
-  late Rx<User?> _user;
-  @override
-  void onReady() {
-    // TODO: implement onReady
-    super.onReady();
-    _user = Rx<User?>(FirebaseAuth.instance.currentUser);
-    // Observable keyword Rx - Continuously checking whether the value of variable is changing or not
-    _user.bindStream(FirebaseAuth.instance.authStateChanges());
-    // bindStream - see the changes happening while authentication
-    ever(_user, _setInitialView);
-  }
+  // late Rx<User?> _user;
+  // @override
+  // void onReady() {
+  //   // TODO: implement onReady
+  //   super.onReady();
+  //   _user = Rx<User?>(FirebaseAuth.instance.currentUser);
+  //   // Observable keyword Rx - Continuously checking whether the value of variable is changing or not
+  //   _user.bindStream(FirebaseAuth.instance.authStateChanges());
+  //   // bindStream - see the changes happening while authentication
+  //   ever(_user, _setInitialView);
+  // }
 
-  _setInitialView(User? user) {
-    if (user == null) {
-      Get.offAll(() => RoutesNames.loginScreen);
-    } else {
-      Get.offAll(() => RoutesNames.homeScreen);
-    }
-  }
+  // _setInitialView(User? user) {
+  //   if (user == null) {
+  //     Get.to(() => RoutesNames.loginScreen);
+  //   } else {
+  //     Get.to(() => RoutesNames.homeScreen);
+  //   }
+  // }
 
   // User Register
   void SignUp(
@@ -58,7 +59,6 @@ class AuthController extends GetxController {
         UserCredential credential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
         String downloadURL = await _uploadProfilePicture(image);
-
         myUser user = myUser(
             name: username,
             profilePhoto: downloadURL,
@@ -70,6 +70,7 @@ class AuthController extends GetxController {
             .collection('users')
             .doc(credential.user!.uid)
             .set(user.toJson());
+        Get.toNamed(RoutesNames.homeScreen);
       } else {
         Get.snackbar(
             "Error Creating Accout", "Please enter all required fields");
@@ -95,8 +96,7 @@ class AuthController extends GetxController {
   void login(String email, String password) async {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
-        await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
+        await FirebaseAuth.instance;
       } else {
         Get.snackbar("Error Logging In", "Please enter all the fields");
       }

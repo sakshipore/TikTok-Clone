@@ -7,11 +7,11 @@ import 'package:tik_tok_clone/view/widgets/text_input.dart';
 class SignupScreen extends StatelessWidget {
   SignupScreen({Key? key}) : super(key: key);
 
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _setPasswordController = new TextEditingController();
-  TextEditingController _confirmPasswordController =
-      new TextEditingController();
-  TextEditingController _usernameController = new TextEditingController();
+  final TextEditingController _emailController =  TextEditingController();
+  final TextEditingController _setPasswordController =  TextEditingController();
+  final TextEditingController _confirmPasswordController =
+       TextEditingController();
+  final TextEditingController _usernameController =  TextEditingController();
 
   @override
   Widget build(BuildContext context) {
