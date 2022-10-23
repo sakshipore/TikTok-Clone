@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:tik_tok_clone/view/screens/add_video.dart';
+import 'package:tik_tok_clone/view/screens/display_screen.dart';
 
 getRandomColor() => [
       Colors.blueAccent,
@@ -14,7 +15,8 @@ var buttonColor = Colors.red[400];
 const borderColor = Colors.grey;
 
 var pageIndex = [
-  Text('Home'),
+  // Text('Home'),
+  DisplayVideoScreen(),
   Text('Search'),
   AddVideoScreen(),
   Text('Messages'),

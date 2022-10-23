@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_tok_clone/constants.dart';
-import 'package:tik_tok_clone/view/widgets/customAddIcon.dart';
+import 'package:tik_tok_clone/view/widgets/custom_add_icon.dart';
+
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: customAddIcon(),
+            icon: CustomAddIcon(),
             label: '',
           ),
           BottomNavigationBarItem(

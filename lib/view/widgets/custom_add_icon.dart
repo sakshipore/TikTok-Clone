@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class customAddIcon extends StatelessWidget {
-  const customAddIcon({Key? key}) : super(key: key);
+class CustomAddIcon extends StatelessWidget {
+  const CustomAddIcon({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

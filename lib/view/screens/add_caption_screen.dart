@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_tok_clone/constants.dart';
+import 'package:tik_tok_clone/controller/upload_video_controller.dart';
 import 'package:tik_tok_clone/view/widgets/text_input.dart';
 import 'package:video_player/video_player.dart';
+import 'package:get/get.dart';
 
 class AddCaptionScreen extends StatefulWidget {
   File videoFile;
@@ -20,6 +22,8 @@ class _AddCaptionScreenState extends State<AddCaptionScreen> {
   late VideoPlayerController videoPlayerController;
   TextEditingController songNameController = new TextEditingController();
   TextEditingController captionController = new TextEditingController();
+  VideoUploadController videoUploadController =
+      Get.put(VideoUploadController());
 
   @override
   void initState() {
@@ -32,6 +36,13 @@ class _AddCaptionScreenState extends State<AddCaptionScreen> {
     videoPlayerController.play();
     videoPlayerController.setLooping(true);
     videoPlayerController.setVolume(0.7);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    videoPlayerController.dispose();
   }
 
   @override
@@ -72,7 +83,10 @@ class _AddCaptionScreenState extends State<AddCaptionScreen> {
                     height: 10.h,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      videoUploadController.uploadVideo(songNameController.text,
+                          captionController.text, widget.videoPath);
+                    },
                     child: Text(
                       "Upload",
                     ),
