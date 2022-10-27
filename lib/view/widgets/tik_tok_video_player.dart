@@ -17,6 +17,7 @@ class _TikTokVideoPlayerState extends State<TikTokVideoPlayer> {
     videoPlayerController = VideoPlayerController.network(widget.videoUrl)
       ..initialize().then((value) {
         videoPlayerController.play();
+        videoPlayerController.setLooping(true);
       });
   }
 
