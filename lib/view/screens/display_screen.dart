@@ -66,21 +66,26 @@ class DisplayVideoScreen extends StatelessWidget {
                           ProfileButton(
                             profilePhotoUrl: videoController.videoList[index].profilePic,
                           ),
-                          Column(
-                            children: [
-                              Icon(
-                                Icons.favorite,
-                                size: 45.h,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                videoController.videoList[index].likes.length.toString(),
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  color: Colors.white,
+                          InkWell(
+                            onTap: () {
+                              videoController.likedVideo(videoController.videoList[index].id);
+                            },
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.favorite,
+                                  size: 45.h,
+                                  color: Colors.pinkAccent,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  videoController.videoList[index].likes.length.toString(),
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           Column(
                             children: [
