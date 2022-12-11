@@ -76,9 +76,57 @@ class ProfileController extends GetxController {
       'profilePic': profilePic,
       'name': name,
       'thumbnails': thumbnails,
-      'isFollowing':isFollowing,
+      'isFollowing': isFollowing,
     };
 
+    update();
+  }
+
+  followUser() async {
+    var doc = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(_uid.value)
+        .collection("followers")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    if (!doc.exists) {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(_uid.value)
+          .collection("followers")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({});
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("following")
+          .doc(_uid.value)
+          .set({});
+
+      _user.value
+          .update('followers', (value) => (int.parse(value) + 1).toString());
+    } else {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(_uid.value)
+          .collection("followers")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .delete();
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("following")
+          .doc(_uid.value)
+          .delete();
+
+      _user.value
+          .update('followers', (value) => (int.parse(value) - 1).toString());
+    }
+
+    _user.value.update('isFollowing', (value) => !value);
     update();
   }
 }

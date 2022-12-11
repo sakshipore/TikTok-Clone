@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_tok_clone/controller/auth_controller.dart';
+import 'package:tik_tok_clone/view/screens/auth/signup_screen.dart';
 import 'package:tik_tok_clone/view/widgets/glitch.dart';
 import 'package:tik_tok_clone/view/widgets/text_input.dart';
 
@@ -71,6 +72,19 @@ class LoginScreen extends StatelessWidget {
                 child: Text(
                   "Login",
                 ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SignupScreen(),
+                  ),
+                );
+              },
+              child: Text(
+                "New User? Click here",
               ),
             ),
           ],

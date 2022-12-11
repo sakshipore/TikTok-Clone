@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tik_tok_clone/controller/search_user_controller.dart';
 import 'package:tik_tok_clone/model/user.dart';
+import 'package:tik_tok_clone/view/screens/profile_screen.dart';
 import 'package:tik_tok_clone/view/widgets/text_input.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -23,7 +24,8 @@ class SearchScreen extends StatelessWidget {
               enabledBorder: InputBorder.none,
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
-              contentPadding: EdgeInsets.only(left: 15.w, right: 15.w, top: 11.h, bottom: 11.h),
+              contentPadding: EdgeInsets.only(
+                  left: 15.w, right: 15.w, top: 11.h, bottom: 11.h),
               hintText: "Search Username",
             ),
             controller: searchQuery,
@@ -44,8 +46,12 @@ class SearchScreen extends StatelessWidget {
                   myUser user = searchController.searchedUsers[index];
                   return ListTile(
                     onTap: () {
-                      Get.snackbar("You clicked ${user.name}",
-                          "Opening Profile Page of it");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileScreen(uid: user.uid),
+                        ),
+                      );
                     },
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(

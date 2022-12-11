@@ -25,7 +25,7 @@ class AuthController extends GetxController {
 
   // User State Persistence
   late Rx<User?> _user;
-  User get user=>_user.value!;
+  User get user => _user.value!;
   // @override
   // void onReady() {
   //   // TODO: implement onReady
@@ -104,5 +104,10 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar("Error Logging In", e.toString());
     }
+  }
+
+  signOut() {
+    FirebaseAuth.instance.signOut();
+    Get.offAll(LoginScreen());
   }
 }
