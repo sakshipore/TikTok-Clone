@@ -23,6 +23,15 @@ class VideoController extends GetxController {
     }));
   }
 
+  shareVideo(String vidId) async {
+    DocumentSnapshot doc =
+        await FirebaseFirestore.instance.collection("videos").doc(vidId).get();
+    int newShareCount = (doc.data() as dynamic)['shareCount'] + 1;
+    await FirebaseFirestore.instance.collection("videos").doc(vidId).update({
+      "shareCount":newShareCount.toString(),
+    });
+  }
+
   likedVideo(String id) async {
     DocumentSnapshot doc =
         await FirebaseFirestore.instance.collection("videos").doc(id).get();
@@ -33,7 +42,7 @@ class VideoController extends GetxController {
       });
     } else {
       await FirebaseFirestore.instance.collection("videos").doc(id).update({
-        'likes':FieldValue.arrayUnion([uid]), 
+        'likes': FieldValue.arrayUnion([uid]),
       });
     }
   }

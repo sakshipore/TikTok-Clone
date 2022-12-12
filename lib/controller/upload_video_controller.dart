@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:tik_tok_clone/controller/auth_controller.dart';
 import 'package:tik_tok_clone/model/video.dart';
+import 'package:tik_tok_clone/view/screens/home_screen.dart';
 import 'package:uuid/uuid.dart';
 import 'package:video_compress/video_compress.dart';
 
@@ -66,7 +67,7 @@ class VideoUploadController extends GetxController {
 
       Get.snackbar(
           "Video Uploaded Successfully", "Thank you for sharing your content");
-      Get.back();
+      Get.to(HomeScreen());
     } catch (e) {
       Get.snackbar("Error uploading video", e.toString());
     }

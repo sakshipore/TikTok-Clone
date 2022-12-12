@@ -22,7 +22,7 @@ var pageIndex = [
   DisplayVideoScreen(),
   SearchScreen(),
   AddVideoScreen(),
-  Text('Messages'),
+  Text('Coming Soon In New Updates!'),
   ProfileScreen(
     uid: FirebaseAuth.instance.currentUser!.uid,
   ),

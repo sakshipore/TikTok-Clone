@@ -38,6 +38,14 @@ class _AddCaptionScreenState extends State<AddCaptionScreen> {
     videoPlayerController.setVolume(0.7);
   }
 
+  Widget uploadContent = Text("Upload");
+  uploadVid() {
+    uploadContent = Text(
+      "Please Wait...",
+    );
+    setState(() {});
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -84,12 +92,11 @@ class _AddCaptionScreenState extends State<AddCaptionScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
+                      uploadVid();
                       videoUploadController.uploadVideo(songNameController.text,
                           captionController.text, widget.videoPath);
                     },
-                    child: Text(
-                      "Upload",
-                    ),
+                    child: uploadContent,
                     style: ElevatedButton.styleFrom(primary: buttonColor),
                   ),
                 ],
