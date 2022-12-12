@@ -6,19 +6,31 @@ import 'package:tik_tok_clone/controller/comment_controller.dart';
 import 'package:tik_tok_clone/view/widgets/text_input.dart';
 import 'package:timeago/timeago.dart' as tago;
 
-class CommentScreen extends StatelessWidget {
+class CommentScreen extends StatefulWidget {
   final String id;
   CommentScreen({
+    super.key,
     required this.id,
   });
 
+  @override
+  State<CommentScreen> createState() => _CommentScreenState();
+}
+
+class _CommentScreenState extends State<CommentScreen> {
   final TextEditingController _commentController = TextEditingController();
+
   CommentController commentController = Get.put(CommentController());
+
+  @override
+  void initState() {
+    super.initState();
+    commentController.updatePostID(widget.id);
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    commentController.updatePostID(id);
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -64,9 +76,7 @@ class CommentScreen extends StatelessWidget {
                         subtitle: Row(
                           children: [
                             Text(
-                              tago.format(commentController
-                                  .comments[index].datePub
-                                  .toDate()),
+                              commentController.comments[index].datePub,
                               style: TextStyle(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.bold,
@@ -91,8 +101,9 @@ class CommentScreen extends StatelessWidget {
                           },
                           child: Icon(
                             Icons.favorite,
-                            color: commentController.comments[index].likes.contains(
-                                    FirebaseAuth.instance.currentUser!.uid)
+                            color: commentController.comments[index].likes
+                                    .contains(
+                                        FirebaseAuth.instance.currentUser!.uid)
                                 ? Colors.red
                                 : Colors.white,
                           ),

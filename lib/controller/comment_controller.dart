@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -14,25 +16,22 @@ class CommentController extends GetxController {
   }
 
   fetchComment() async {
-    _comments.bindStream(
-      FirebaseFirestore.instance
-          .collection("videos")
-          .doc(_postID)
-          .collection("comments")
-          .snapshots()
-          .map(
-        (QuerySnapshot query) {
-          List<Comment> retVal = [];
-          for (var element in query.docs) {
-            retVal.add(Comment.fromSnap(element));
-          }
-          return retVal;
-        },
-      ),
-    );
+    _comments.bindStream(FirebaseFirestore.instance
+        .collection("videos")
+        .doc(_postID)
+        .collection("comments")
+        .snapshots()
+        .map((QuerySnapshot query) {
+      List<Comment> retVal = [];
+      for (var element in query.docs) {
+        retVal.add(Comment.fromSnap(element));
+      }
+      return retVal;
+    }));
   }
 
   postComment(String commentText) async {
+    log(commentText);
     try {
       if (commentText.isNotEmpty) {
         DocumentSnapshot userDoc = await FirebaseFirestore.instance
@@ -47,34 +46,34 @@ class CommentController extends GetxController {
         int len = allDocs.docs.length;
 
         Comment comment = Comment(
-          username: (userDoc.data() as dynamic)['name'],
-          comment: commentText.trim(),
-          datePub: DateTime.now(),
-          likes: [],
-          profilePic: (userDoc.data() as dynamic)['profilePic'],
-          uid: FirebaseAuth.instance.currentUser!.uid,
-          id: 'Comment $len',
-        );
+            username: (userDoc.data() as dynamic)['name'],
+            comment: commentText.trim(),
+            datePub: DateTime.now().second.toString(),
+            likes: [],
+            profilePic: (userDoc.data() as dynamic)['profilePhoto'],
+            uid: FirebaseAuth.instance.currentUser!.uid,
+            id: 'Comment $len');
 
-        DocumentSnapshot doc = await FirebaseFirestore.instance
-            .collection("videos")
-            .doc(_postID)
-            .get();
         await FirebaseFirestore.instance
             .collection("videos")
             .doc(_postID)
-            .update(
-          {
-            'commentsCount': (doc.data() as dynamic)['commentsCount'] + 1,
-          },
-        );
-
-        await FirebaseFirestore.instance
             .collection("comments")
             .doc('Comment $len')
             .set(comment.toJson());
+
+        DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('videos')
+            .doc(_postID)
+            .get();
+        await FirebaseFirestore.instance
+            .collection('videos')
+            .doc(_postID)
+            .update({
+          'commentsCount': (doc.data() as dynamic)['commentsCount'] + 1,
+        });
       } else {
-        Get.snackbar("Please Enter some content", "Please write");
+        Get.snackbar(
+            "Please Enter some content", "Please write something in comment");
       }
     } catch (e) {
       Get.snackbar("Error in sending comment", e.toString());
@@ -106,8 +105,8 @@ class CommentController extends GetxController {
           .collection('comments')
           .doc(id)
           .update({
-            'likes':FieldValue.arrayUnion([uid]),
-          });
+        'likes': FieldValue.arrayUnion([uid]),
+      });
     }
   }
 }

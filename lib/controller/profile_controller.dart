@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,7 @@ class ProfileController extends GetxController {
 
   getUserData() async {
     List<String> thumbnails = [];
+    log(_uid.value);
     var myVideos = await FirebaseFirestore.instance
         .collection("videos")
         .where("uid", isEqualTo: _uid.value)
@@ -30,7 +33,7 @@ class ProfileController extends GetxController {
 
     final userData = userDoc.data() as dynamic;
     String name = userDoc['name'];
-    String profilePic = userDoc['profilePic'];
+    String profilePic = userDoc['profilePhoto'];
     int likes = 0;
     int following = 0;
     int followers = 0;

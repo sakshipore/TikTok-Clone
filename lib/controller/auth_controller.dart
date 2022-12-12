@@ -26,24 +26,23 @@ class AuthController extends GetxController {
   // User State Persistence
   late Rx<User?> _user;
   User get user => _user.value!;
-  // @override
-  // void onReady() {
-  //   // TODO: implement onReady
-  //   super.onReady();
-  //   _user = Rx<User?>(FirebaseAuth.instance.currentUser);
-  //   // Observable keyword Rx - Continuously checking whether the value of variable is changing or not
-  //   _user.bindStream(FirebaseAuth.instance.authStateChanges());
-  //   // bindStream - see the changes happening while authentication
-  //   ever(_user, _setInitialView);
-  // }
+  @override
+  void onReady() {
+    super.onReady();
+    _user = Rx<User?>(FirebaseAuth.instance.currentUser);
+    // Observable keyword Rx - Continuously checking whether the value of variable is changing or not
+    _user.bindStream(FirebaseAuth.instance.authStateChanges());
+    // bindStream - see the changes happening while authentication
+    ever(_user, _setInitialView);
+  }
 
-  // _setInitialView(User? user) {
-  //   if (user == null) {
-  //     Get.to(() => RoutesNames.loginScreen);
-  //   } else {
-  //     Get.to(() => RoutesNames.homeScreen);
-  //   }
-  // }
+  _setInitialView(User? user) {
+    if (user == null) {
+      Get.toNamed(RoutesNames.loginScreen);
+    } else {
+      Get.toNamed(RoutesNames.homeScreen);
+    }
+  }
 
   // User Register
   void SignUp(
@@ -97,7 +96,8 @@ class AuthController extends GetxController {
   void login(String email, String password) async {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
-        await FirebaseAuth.instance;
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
       } else {
         Get.snackbar("Error Logging In", "Please enter all the fields");
       }

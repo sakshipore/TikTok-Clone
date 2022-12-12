@@ -28,15 +28,17 @@ class _AlbumRotatorState extends State<AlbumRotator>
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return RotationTransition(
-      turns: Tween(begin: 0.0, end: 1.0,).animate(controller),
+      turns: Tween(
+        begin: 0.0,
+        end: 1.0,
+      ).animate(controller),
       child: SizedBox(
         width: 70.w,
         height: 70.h,

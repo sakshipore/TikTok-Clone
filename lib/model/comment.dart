@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Comment {
   String username;
   String comment;
-  final datePub;
+  String datePub;
   List likes;
   String profilePic;
   String uid;
@@ -24,19 +24,19 @@ class Comment {
         "comment": comment,
         "datePub": datePub,
         "likes": likes,
-        "profilePic": profilePic,
+        "profilePhoto": profilePic,
         "uid": uid,
         "id": id,
       };
 
   static Comment fromSnap(DocumentSnapshot snap) {
-    var snapshot = snap.data as Map<String, dynamic>;
+    var snapshot = snap.data() as Map<String, dynamic>;
     return Comment(
-      username: snapshot['username'],
-      comment: snapshot['comment'],
-      datePub: snapshot['datePub'],
-      likes: snapshot['likes'],
-      profilePic: snapshot['profilePic'],
+      username: snapshot['username'] ?? "",
+      comment: snapshot['comment'] ?? "",
+      datePub: snapshot['datePub'] ?? "",
+      likes: snapshot['likes'] ?? [],
+      profilePic: snapshot['profilePhoto'],
       uid: snapshot['uid'],
       id: snapshot['id'],
     );

@@ -9,7 +9,7 @@ import 'package:tik_tok_clone/view/screens/display_screen.dart';
 import 'package:tik_tok_clone/view/screens/home_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  String uid;
+  final String uid;
   ProfileScreen({Key? key, required this.uid}) : super(key: key);
 
   @override
@@ -22,7 +22,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     profileController.updateUserId(widget.uid);
   }

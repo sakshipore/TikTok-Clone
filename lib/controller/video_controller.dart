@@ -28,7 +28,7 @@ class VideoController extends GetxController {
         await FirebaseFirestore.instance.collection("videos").doc(vidId).get();
     int newShareCount = (doc.data() as dynamic)['shareCount'] + 1;
     await FirebaseFirestore.instance.collection("videos").doc(vidId).update({
-      "shareCount":newShareCount.toString(),
+      "shareCount": newShareCount,
     });
   }
 
